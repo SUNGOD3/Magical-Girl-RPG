@@ -72,7 +72,7 @@
 				val.spd=Math.floor((100-(val.def*2+val.atk)/10)/10);
 				val.HP=Math.floor((val.def*2+val.atk)*(10-val.spd)/10);
 				var markup="<table border='1' width='50%'><thead><caption>p1's total ascll value = " + n + "</caption></thead>";
-				if(gender!=0)markup+="<tbody><tr><td>gender</td><td>female</td></tr></tbody>";
+				if(val.gender!=0)markup+="<tbody><tr><td>gender</td><td>female</td></tr></tbody>";
 				else markup+="<tbody><tr><td>gender</td><td>male</td></tr></tbody>";
 				markup+="<tbody><tr><td>HP</td><td>"+val.HP+"</td></tr></tbody>";
 				markup+="<tbody><tr><td>Atk</td><td>"+val.atk+"</td></tr></tbody>";
