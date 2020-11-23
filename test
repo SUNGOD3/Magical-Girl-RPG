@@ -2,14 +2,38 @@
 	<head>
 		<title>test</title>
 		<style>
-			
+			.button {
+				background-color: #4CAF50; /* Green */
+				border: none;
+				color: white;
+				padding: 2px 3px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				margin: 4px 2px;
+				transition-duration: 0.4s;
+				cursor: pointer;
+			}
+			.button1 {
+				background-color: white; 
+				color: black; 
+				border: 2px solid #4CAF50;
+			}
+			.button1:hover {
+				background-color: #4CAF50;
+				color: white;
+			}
+			.disabled {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
-		<label> Input your palyer's name <input id="play_1" type="text" value="030"></label>
-		<label><input id="start" type="button" value="enter"></label>
+		<label> Input your palyer's name <input id="play_1" type="text"></label>
+		<label><input id="start" class="button button1" type="button" value="generate"></label>
 		<div id="display"></div>
 		<div id="display2"></div>
+		<label><input id="check" class="button disabled" type="button" value="enter"></label>
 		<script>
 			var p1,btt;
 			function eve(){
@@ -19,11 +43,11 @@
 			function judge(){
 				p1=document.getElementById("play_1").value;
 				var n=0;
-				var gender,atk,def,spd;
+				var gender,HP,atk,def,spd;
 				for(var i=0;i<p1.length;++i){
 					n+=p1.charCodeAt(i);
 				}
-				gender=n%2;
+				gender=n%10;
 				atk=n%100;
 				def=(100-atk+n%10)%100;
 				if(atk<20)
@@ -32,19 +56,33 @@
 					def+=100;
 				atk+=p1.length%20;
 				def+=p1.length%18;
-				spd=(100-(def*2+atk)/10)/10;
+				spd=Math.floor((100-(def*2+atk)/10)/10);
+				HP=Math.floor((def*2+atk)*(10-spd)/10);
 				var markup="<table border='1' width='50%'><thead><caption>p1's total ascll value = " + n + "</caption></thead>";
-				if(gender==1){
+				if(gender!=0){
 					markup+="<tbody><tr><td>gender</td><td>female</td></tr></tbody>";
 				}
 				else{
 					markup+="<tbody><tr><td>gender</td><td>male</td></tr></tbody>";
 				}
+				markup+="<tbody><tr><td>HP</td><td>"+HP+"</td></tr></tbody>";
 				markup+="<tbody><tr><td>Atk</td><td>"+atk+"</td></tr></tbody>";
 				markup+="<tbody><tr><td>Def</td><td>"+def+"</td></tr></tbody>";
 				markup+="<tbody><tr><td>Spd</td><td>"+spd+"</td></tr></tbody>";
 				markup+="</table>"
 				document.getElementById("display").innerHTML=markup;
+				var b2=document.getElementById("check");
+				b2.style.display="inline";
+				check2();
+				document.getElementById("display2").innerHTML="Are you sure?";
+			}
+			function check2(){
+				var btt2=document.getElementById("check");
+				btt2.addEventListener("click",money,false);
+			}
+			function money(){
+				alert("You don't have enough money!");
+				location.reload();
 			}
 			window.addEventListener( "load", eve, false );
 		</script>
