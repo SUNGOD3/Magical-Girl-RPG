@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>test</title>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<label> Input your palyer's name <input id="play_1" type="text" value="030"></label>
+		<label><input id="start" type="button" value="enter"></label>
+		<div id="display"></div>
+		<div id="display2"></div>
+		<script>
+			var p1,btt;
+			function eve(){
+				btt=document.getElementById("start");
+				btt.addEventListener("click",judge,false);
+			}
+			function judge(){
+				p1=document.getElementById("play_1").value;
+				var n=0;
+				var gender,atk,def,spd;
+				for(var i=0;i<p1.length;++i){
+					n+=p1.charCodeAt(i);
+				}
+				gender=n%2;
+				atk=n%100;
+				def=(100-atk+n%10)%100;
+				if(atk<20)
+					atk+=100;
+				if(def<20)
+					def+=100;
+				atk+=p1.length%20;
+				def+=p1.length%18;
+				spd=(100-(def*2+atk)/10)/10;
+				var markup="<table border='1' width='50%'><thead><caption>p1's total ascll value = " + n + "</caption></thead>";
+				if(gender==1){
+					markup+="<tbody><tr><td>gender</td><td>female</td></tr></tbody>";
+				}
+				else{
+					markup+="<tbody><tr><td>gender</td><td>male</td></tr></tbody>";
+				}
+				markup+="<tbody><tr><td>Atk</td><td>"+atk+"</td></tr></tbody>";
+				markup+="<tbody><tr><td>Def</td><td>"+def+"</td></tr></tbody>";
+				markup+="<tbody><tr><td>Spd</td><td>"+spd+"</td></tr></tbody>";
+				markup+="</table>"
+				document.getElementById("display").innerHTML=markup;
+			}
+			window.addEventListener( "load", eve, false );
+		</script>
+	</body>
+</html>
